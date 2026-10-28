@@ -1,9 +1,11 @@
-# ERD Description
+# STUDENT DATABASE MANAGEMENT SYSTEM
 
 The ERD for the Student Management System contains eight main entities, with the following relationships and attributes.
 
 ```mermaid
 erDiagram
+    title STUDENT DATABASE MANAGEMENT SYSTEM
+
     DEPARTMENT ||--o{ COURSE : offers
     DEPARTMENT ||--o{ LECTURER : employs
     LECTURER ||--o{ COURSE : teaches
