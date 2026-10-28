@@ -1,6 +1,86 @@
 # ERD Description
 
-The ERD for the Student Management System contains eight main entities:
+The ERD for the Student Management System contains eight main entities, with the following relationships and attributes.
+
+```mermaid
+erDiagram
+    DEPARTMENT ||--o{ COURSE : offers
+    DEPARTMENT ||--o{ LECTURER : employs
+    LECTURER ||--o{ COURSE : teaches
+
+    STUDENT ||--o{ ENROLLMENT : enrolls_in
+    COURSE ||--o{ ENROLLMENT : contains
+
+    STUDENT ||--o{ SCHOLARSHIP : receives
+    STUDENT ||--o{ ATTENDANCE : has
+    ENROLLMENT ||--o{ RESULTS : produces
+
+    STUDENT ||--o{ STUDENT_LECTURER : attends
+    LECTURER ||--o{ STUDENT_LECTURER : instructs
+
+    DEPARTMENT {
+        int Department_ID PK
+        varchar Department_Name
+        varchar Department_Building
+    }
+
+    COURSE {
+        int Course_ID PK
+        varchar Course_Name
+        int Course_Duration
+        int Department_ID FK
+    }
+
+    LECTURER {
+        int Lecturer_ID PK
+        varchar Lecturer_Name
+        varchar Email
+        int Department_ID FK
+    }
+
+    STUDENT {
+        int Student_ID PK
+        varchar Student_Name
+        int Age
+        varchar Address
+        varchar Email
+    }
+
+    ENROLLMENT {
+        int Enrollment_ID PK
+        date Enrollment_Date
+        int Student_ID FK
+        int Course_ID FK
+    }
+
+    RESULTS {
+        int Result_ID PK
+        varchar Result_Status
+        int Marks
+        int Enrollment_ID FK
+    }
+
+    SCHOLARSHIP {
+        int Scholarship_ID PK
+        varchar Scholarship_Name
+        decimal Amount
+        int Student_ID FK
+    }
+
+    ATTENDANCE {
+        int Attendance_ID PK
+        date Attendance_Date
+        varchar Status
+        int Enrollment_ID FK
+    }
+
+    STUDENT_LECTURER {
+        int Student_ID PK, FK
+        int Lecturer_ID PK, FK
+        int Student_Lecture_ID PK
+        varchar Semester
+    }
+```
 
 ## Department
 - Department_ID (PK)
@@ -37,8 +117,7 @@ The ERD for the Student Management System contains eight main entities:
 - Result_ID (PK)
 - Marks
 - Result_Status
-- Student_ID (FK)
-- Course_ID (FK)
+- Enrollment_ID (FK)
 
 ## Scholarship
 - Scholarship_ID (PK)
@@ -49,8 +128,14 @@ The ERD for the Student Management System contains eight main entities:
 ## Attendance
 - Attendance_ID (PK)
 - Attendance_Date
-- Student_ID (FK)
-- Course_ID (FK)
+- Status
+- Enrollment_ID (FK)
+
+## Student_Lecturer
+- Student_ID (PK, FK)
+- Lecturer_ID (PK, FK)
+- Student_Lecture_ID (PK)
+- Semester
 
 ## Relationship Summary
 - Department has many Course records
@@ -61,6 +146,7 @@ The ERD for the Student Management System contains eight main entities:
 - Student has many Attendance records
 - Student receives many Scholarship records
 - Student receives one Result per Course
+- Student and Lecturer are linked through Student_Lecturer for course delivery records
 
 ## Cardinality Overview
 - One department to many courses
@@ -70,4 +156,5 @@ The ERD for the Student Management System contains eight main entities:
 - One course to many enrollments
 - One student to many attendance records
 - One student to many scholarships
-- One student to many results
+- One enrollment to many results
+- One student to many lecturer-course associations
