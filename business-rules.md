@@ -1,6 +1,7 @@
 BUSINESS RULES FOR STUDENT DATABASE MANAGEMENT SYSTEM
 
 
+
 DEPARTMENT
 
 The institution is organised into DEPARTMENTS. Each DEPARTMENT is uniquely identified by a Department_ID and has a Department_Name and a Department_B attribute. A DEPARTMENT offers one or more COURSES and employs one or more LECTURERS. Every COURSE and every LECTURER must belong to exactly one DEPARTMENT.
